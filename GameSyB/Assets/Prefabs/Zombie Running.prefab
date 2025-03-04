@@ -1913,12 +1913,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11f13dce8f984b340bb21770b71950b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHP: 60
-  _hP: 60
+  _maxHP: 100
+  _hP: 100
   _healthBar: {fileID: 1808276487535027259}
   _forceStrength: 300
   _forceStrengthRocket: 500
-  _forceStrengthForVolna: 200
+  _forceStrengthForVolna: 120
 --- !u!136 &6194508234298892672
 CapsuleCollider:
   m_ObjectHideFlags: 0

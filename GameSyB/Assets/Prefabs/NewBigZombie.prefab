@@ -1425,12 +1425,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11f13dce8f984b340bb21770b71950b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHP: 140
-  _hP: 140
+  _maxHP: 200
+  _hP: 200
   _healthBar: {fileID: 393126153224472584}
   _forceStrength: 120
   _forceStrengthRocket: 150
-  _forceStrengthForVolna: 50
+  _forceStrengthForVolna: 30
+  _textPoints: {fileID: 0}
+  _deadZombie:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &8445534994567649101
 MonoBehaviour:
   m_ObjectHideFlags: 0

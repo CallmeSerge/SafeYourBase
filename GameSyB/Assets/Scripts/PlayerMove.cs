@@ -34,7 +34,6 @@ public class PlayerMove : MonoBehaviour
     }
     void Update()
     {
-        Debug.Log(_go);
             if (_isDeathing == false)
             {
                //float Go = _joystick.Horizontal;
@@ -85,7 +84,7 @@ public class PlayerMove : MonoBehaviour
         _rb.isKinematic = true;
         _animator.SetTrigger("isDeath");
         _capsulaCollider.enabled = false;
-        Invoke("CallGameOver", 7);
+        Invoke("CallGameOver", 4);
     }
 
     public void ChancheIsDeathing()

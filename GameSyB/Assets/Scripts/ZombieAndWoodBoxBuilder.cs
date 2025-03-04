@@ -16,6 +16,7 @@ public class ZombieAndWoodBoxBuilder : MonoBehaviour
     [SerializeField] private PlayerMove _playerMove;
     [SerializeField] private AudioSource _audioSource;
     [SerializeField] private ParticleSystem _boxBoomPrefab;
+    [SerializeField] private PointsManager _pointManager;
     private List<GameObject> _tegs;
     [SerializeField] private float _timer;
     private bool _isZombieWaveAttaking = false;
@@ -52,7 +53,8 @@ public class ZombieAndWoodBoxBuilder : MonoBehaviour
             yield return new WaitForSeconds(_waitForNewZombieAwake);
             int vibraniiTeg = Random.Range(0, _tegs.Count);
             int vibraniiZombie = Random.Range(0, _zombiePrefab.Length);
-            Instantiate(_zombiePrefab[vibraniiZombie], _tegs[vibraniiTeg].transform.position, Quaternion.identity);
+            GameObject newZombie = Instantiate(_zombiePrefab[vibraniiZombie], _tegs[vibraniiTeg].transform.position, Quaternion.identity);
+        newZombie.GetComponent<ZombieLiteHealthSystem>().Construct(_pointManager);
             if (_timer > _maxTimerForWoodBoxAwake)
             {
                 _tegs.RemoveAt(vibraniiTeg);

@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class ZombieLiteHealthSystem : MonoBehaviour
@@ -15,6 +17,9 @@ public class ZombieLiteHealthSystem : MonoBehaviour
     private Animator _animator;
     private bool _isTouchingZombie = false;
     private bool _isZombieAlreadyDead = false;
+    private PointsManager _pointManager;
+
+    
 
     private void Awake()
     {
@@ -26,11 +31,10 @@ public class ZombieLiteHealthSystem : MonoBehaviour
         }
     }
 
-    private void Update()
+    public void Construct(PointsManager pointManager)
     {
-        _healthBar.fillAmount = _maxHP / _hP;
+        _pointManager = pointManager;
     }
-
     public void ChancheIsTouchingZombie()
     {
         _isTouchingZombie = true;
@@ -38,6 +42,7 @@ public class ZombieLiteHealthSystem : MonoBehaviour
     public void TakeDamage(float bulletDamage, Collision other)
     {
         _maxHP -= bulletDamage;
+        _healthBar.fillAmount = _maxHP / _hP;
         if (_maxHP < 0 )
         {
             _maxHP = 0;
@@ -57,6 +62,7 @@ public class ZombieLiteHealthSystem : MonoBehaviour
     public void TakeDamage(float bulletDamage, Collider other, GameObject volna)
     {
         _maxHP -= bulletDamage;
+        _healthBar.fillAmount = _maxHP / _hP;
         if (_maxHP < 0)
         {
             _maxHP = 0;
@@ -91,6 +97,7 @@ public class ZombieLiteHealthSystem : MonoBehaviour
         {
             otherCollision.gameObject.GetComponent<Rigidbody>().AddForceAtPosition(Vector3.back * _forceStrength, otherCollision.transform.position, ForceMode.Impulse);
         }
+        _pointManager.PointManager();
         Invoke("DestroyZombieLite", 7);
     }
 
@@ -108,6 +115,7 @@ public class ZombieLiteHealthSystem : MonoBehaviour
         {
                 otherColliderRB.AddForceAtPosition(directionVolna * _forceStrengthForVolna, otherCollider.transform.position, ForceMode.Impulse);
         }
+        _pointManager.PointManager();
         Invoke("DestroyZombieLite", 7);
     }
 

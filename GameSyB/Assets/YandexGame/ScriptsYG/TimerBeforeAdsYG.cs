@@ -12,6 +12,7 @@ namespace YG
         [SerializeField,
             Tooltip("Массив объектов, которые будут показываться по очереди через секунду. Сколько объектов вы поместите в массив, столько секунд будет отчитываться перед показом рекламы.\n\nНапример, поместите в массив три объекта: певый с текстом '3', второй с текстом '2', третий с текстом '1'.\nВ таком случае произойдёт отчет трёх секунд с показом объектов с цифрами перед рекламой.")]
         private GameObject[] secondObjects;
+        [SerializeField] private GameObject[] secondObjectsEnglish;
 
         [SerializeField, Tooltip("Пазуа с помощью компонента ViewingAdsYG.")]
         private bool pauseTo_ViewingAdsYG = true;
@@ -25,16 +26,33 @@ namespace YG
 
         private void Start()
         {
-            if (secondsPanelObject)
-                secondsPanelObject.SetActive(false);
+            if (PlayerPrefs.GetString("ChooseLanguage") == "ru")
+            {
+                if (secondsPanelObject)
+                    secondsPanelObject.SetActive(false);
 
-            for (int i = 0; i < secondObjects.Length; i++)
-                secondObjects[i].SetActive(false);
+                for (int i = 0; i < secondObjects.Length; i++)
+                    secondObjects[i].SetActive(false);
 
-            if (secondObjects.Length > 0)
-                StartCoroutine(CheckTimerAd());
-            else
-                Debug.LogError("Fill in the array 'secondObjects'");
+                if (secondObjects.Length > 0)
+                    StartCoroutine(CheckTimerAd());
+                else
+                    Debug.LogError("Fill in the array 'secondObjects'");
+            }
+            else if (PlayerPrefs.GetString("ChooseLanguage") == "en")
+            {
+                if (secondsPanelObject)
+                    secondsPanelObject.SetActive(false);
+
+                for (int i = 0; i < secondObjectsEnglish.Length; i++)
+                    secondObjectsEnglish[i].SetActive(false);
+
+                if (secondObjectsEnglish.Length > 0)
+                    StartCoroutine(CheckTimerAd());
+                else
+                    Debug.LogError("Fill in the array 'secondObjects'");
+            }
+
         }
 
         IEnumerator CheckTimerAd()
@@ -66,28 +84,57 @@ namespace YG
 
             while (true)
             {
-                if (objSecCounter < secondObjects.Length)
+                if (PlayerPrefs.GetString("ChooseLanguage") == "ru")
                 {
-                    for (int i2 = 0; i2 < secondObjects.Length; i2++)
-                        secondObjects[i2].SetActive(false);
+                    if (objSecCounter < secondObjects.Length)
+                    {
+                        for (int i2 = 0; i2 < secondObjects.Length; i2++)
+                            secondObjects[i2].SetActive(false);
 
-                    secondObjects[objSecCounter].SetActive(true);
-                    objSecCounter++;
+                        secondObjects[objSecCounter].SetActive(true);
+                        objSecCounter++;
 
-                    yield return new WaitForSecondsRealtime(1.0f);
+                        yield return new WaitForSecondsRealtime(1.0f);
+                    }
+
+                    if (objSecCounter == secondObjects.Length)
+                    {
+                        YandexGame.FullscreenShow();
+                        StartCoroutine(BackupTimerClosure());
+
+                        while (!YandexGame.nowFullAd)
+                            yield return null;
+
+                        RestartTimer();
+                        yield break;
+                    }
+                }
+                else if (PlayerPrefs.GetString("ChooseLanguage") == "en")
+                {
+                    if (objSecCounter < secondObjectsEnglish.Length)
+                    {
+                        for (int i2 = 0; i2 < secondObjectsEnglish.Length; i2++)
+                            secondObjectsEnglish[i2].SetActive(false);
+
+                        secondObjectsEnglish[objSecCounter].SetActive(true);
+                        objSecCounter++;
+
+                        yield return new WaitForSecondsRealtime(1.0f);
+                    }
+
+                    if (objSecCounter == secondObjectsEnglish.Length)
+                    {
+                        YandexGame.FullscreenShow();
+                        StartCoroutine(BackupTimerClosure());
+
+                        while (!YandexGame.nowFullAd)
+                            yield return null;
+
+                        RestartTimer();
+                        yield break;
+                    }
                 }
 
-                if (objSecCounter == secondObjects.Length)
-                {
-                    YandexGame.FullscreenShow();
-                    StartCoroutine(BackupTimerClosure());
-
-                    while (!YandexGame.nowFullAd)
-                        yield return null;
-
-                    RestartTimer();
-                    yield break;
-                }
             }
         }
 

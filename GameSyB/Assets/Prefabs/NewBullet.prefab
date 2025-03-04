@@ -150,4 +150,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _bulletSpeed: 40
   _bulletDamage: 20
-  _vfxPrefab: {fileID: 5124576600126632330, guid: 616b565076ff92844a1c2ecfc2437d2e, type: 3}
+  _vfxPrefab: {fileID: 19800002, guid: 1a86c0780c5cbfa48b2ba7f25d87d362, type: 3}

@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using DG.Tweening;
+using UnityEngine.UI;
 
 public class GameOver : MonoBehaviour
 {
     [SerializeField] private GameObject _returnButton;
     private void Start()
     {
-        Invoke("ReturButtonAwake", 2); 
+        Invoke("ReturnButtonAwake", 2); 
     }
     public void ReturnInGame()
     {
@@ -22,7 +23,7 @@ public class GameOver : MonoBehaviour
         }
     }
 
-    private void ReturButtonAwake()
+    private void ReturnButtonAwake()
     {
         _returnButton.SetActive(true);
     }

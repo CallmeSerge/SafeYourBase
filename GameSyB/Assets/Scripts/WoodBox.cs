@@ -9,6 +9,7 @@ public class WoodBox : MonoBehaviour
     [SerializeField] private float _boxHeath;
     [SerializeField] private GameObject[] _veaponOrZombie;
     [SerializeField] private ParticleSystem _boxBoomPrefab;
+    [SerializeField] private GameObject _volnaPrefab;
     private Rigidbody _rbBox;
     private void Start()
     {
@@ -34,6 +35,7 @@ public class WoodBox : MonoBehaviour
                 veapon.transform.eulerAngles = new Vector3(-90, 0, 0);
             }
             ParticleSystem boxBoom =  Instantiate(_boxBoomPrefab, gameObject.transform.position, Quaternion.identity);
+            Instantiate(_volnaPrefab, gameObject.transform.position, Quaternion.identity);
             AudioEffects.audioSource.PlayOneShot(AudioEffects.woodBoxDestroy);
             Destroy(gameObject);
         }

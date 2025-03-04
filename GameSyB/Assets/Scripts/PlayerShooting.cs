@@ -124,14 +124,14 @@ public class PlayerShooting : MonoBehaviour
 
                 if (_puliForAutomatCount == 0)
                 {
-                    ChanchePistol();
+                    ChoosePistol();
                     _animator.SetBool("isAutomatShooting", false);
                 }
             }
         } 
     }
 
-    public void ChanchePistol()
+    public void ChoosePistol()
     {
         _bulletUI.SetActive(false);
         _fireButtonForPistolAndBazuka.SetActive(true);
@@ -148,6 +148,11 @@ public class PlayerShooting : MonoBehaviour
         _isAutomatShooting = false;
         _isPistolShooting = true;
         _isBazukaShooting = false;
+        _isStartAutomatShooting = false;
+    }
+
+    public void ChooseIsAutomatShooting()
+    {
         _isStartAutomatShooting = false;
     }
 
